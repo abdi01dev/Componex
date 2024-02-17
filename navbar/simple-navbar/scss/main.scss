@@ -1,0 +1,205 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  // config here
+  --mobile-container-paddingX: 24px;
+
+  --dekstop-navbar-height: 56px;
+  --mobile-navbar-height: 48px;
+
+  --navbar-brand-color: #007dfc;
+  --navbar-brand-font-size: 24px;
+  --navbar-brand-font-weight: 700;
+  --navbar-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  --navbar-link-gap: 24px;
+  --navbar-link-font-weight: 500;
+  --navbar-link-active-color: black;
+  --navbar-link-color: rgba(0, 0, 0, 0.7);
+
+  --navbar-toggle-width: 25px;
+  --navbar-toggle-height: 20px;
+  --navbar-toggle-span-color: #212121;
+  --navbar-toggle-span-height: 3px;
+  --navbar-toggle-span-radius: 10px;
+  --navbar-toggle-span-rotate-duration: 300ms;
+  --navbar-toggle-span-opacity-duration: 200ms;
+
+  --mobile-navbar-linksWrapper-width: 60vw;
+  --mobile-navbar-linksWrapper-background-color: #f9f9f9;
+  --mobile-navbar-linksWrapper-box-shadow: -2px 0 4px rgba(0, 0, 0, 0.05);
+  --mobile-navbar-linksWrapper-transition: 300ms;
+  --mobile-navbar-linksWrapper-paddingY: 64px;
+}
+
+body {
+  font-family: inter, sans-serif;
+  height: 200vh;
+
+  &.debug * {
+    outline: 1px solid red;
+  }
+}
+
+.container {
+  margin-inline: auto;
+}
+
+.navbar {
+  box-shadow: var(--navbar-box-shadow);
+  position: fixed;
+  left: 0;
+  right: 0;
+  .container {
+    height: var(--dekstop-navbar-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  & &__brand {
+    font-size: var(--navbar-brand-font-size);
+    font-weight: var(--navbar-brand-font-weight);
+    text-decoration: none;
+    color: var(--navbar-brand-color);
+  }
+
+  & &__links-wrapper {
+    display: flex;
+    list-style: none;
+    column-gap: var(--navbar-link-gap);
+  }
+
+  & &__link-item.active {
+    .navbar__link {
+      color: var(--navbar-link-active-color);
+    }
+  }
+
+  & &__link {
+    font-weight: var(--navbar-link-font-weight);
+    text-decoration: none;
+    color: var(--navbar-link-color);
+  }
+}
+
+// ======== Responsive Breakpoints ========
+
+// xs: extra-small
+@media (width < 576px) {
+  .container {
+    max-width: 100%;
+    padding-inline: var(--mobile-container-paddingX);
+  }
+}
+
+// sm: small
+@media (576px <= width < 768px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+// md: medium
+@media (768px <= width < 992px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+// min: 992px
+@media (width > 992px) {
+  .navbar__toggle {
+    display: none;
+  }
+}
+
+// max: 992px
+@media (width <= 992px) {
+  .navbar {
+    & &__links-wrapper {
+      width: var(--mobile-navbar-linksWrapper-width);
+      height: 100dvh;
+      background-color: var(--mobile-navbar-linksWrapper-background-color);
+      box-shadow: var(--mobile-navbar-linksWrapper-box-shadow);
+      flex-direction: column;
+      justify-content: space-between;
+      position: absolute;
+      top: 0;
+      right: -100%;
+      transition: var(--mobile-navbar-linksWrapper-transition);
+      text-align: center;
+      padding-block: var(--mobile-navbar-linksWrapper-paddingY);
+      box-sizing: border-box;
+
+      &.show {
+        right: 0;
+      }
+    }
+
+    & &__toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: var(--navbar-toggle-width);
+      height: var(--navbar-toggle-height);
+      z-index: 10;
+
+      &.active span:nth-child(1) {
+        transform: rotate(-45deg);
+        transform-origin: top right;
+        transition: var(--navbar-toggle-span-rotate-duration);
+      }
+
+      &.active span:nth-child(2) {
+        opacity: 0;
+        transition: var(--navbar-toggle-span-rotate-duration);
+      }
+
+      &.active span:nth-child(3) {
+        transform: rotate(45deg);
+        transform-origin: bottom right;
+        transition: var(--navbar-toggle-span-rotate-duration);
+      }
+
+      span {
+        background-color: var(--navbar-toggle-span-color);
+        height: var(--navbar-toggle-span-height);
+        border-radius: var(--navbar-toggle-span-radius);
+
+        &:nth-child(2) {
+          transition: var(--navbar-toggle-span-opacity-duration);
+        }
+
+        &:nth-child(1),
+        &:nth-child(3) {
+          transition: var(--navbar-toggle-span-rotate-duration);
+        }
+      }
+    }
+  }
+}
+
+// lg: large
+@media (992px <= width < 1200px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+// xl: extra-large
+@media (1200px <= width < 1400px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+// xxl: extra extra-large
+@media (width >= 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
