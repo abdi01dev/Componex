@@ -10,6 +10,7 @@
   --dekstop-navbar-height: 56px;
   --mobile-navbar-height: 48px;
 
+  --navbar-background-color: white;
   --navbar-brand-color: #007dfc;
   --navbar-brand-font-size: 24px;
   --navbar-brand-font-weight: 700;
@@ -36,6 +37,7 @@
 }
 
 body {
+  padding-top: var(--dekstop-navbar-height);
   font-family: inter, sans-serif;
   height: 200vh;
 
@@ -49,8 +51,10 @@ body {
 }
 
 .navbar {
+  background-color: var(--navbar-background-color);
   box-shadow: var(--navbar-box-shadow);
   position: fixed;
+  top: 0;
   left: 0;
   right: 0;
   .container {
@@ -119,7 +123,15 @@ body {
 
 // max: 992px
 @media (width <= 992px) {
+  body {
+    padding-top: var(--mobile-navbar-height);
+  }
+
   .navbar {
+    .container {
+      height: var(--mobile-navbar-height);
+    }
+
     & &__links-wrapper {
       width: var(--mobile-navbar-linksWrapper-width);
       height: 100dvh;
